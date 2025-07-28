@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Galeria de Fotos Interativa</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    figure {
+      border: 2px solid #ccc;
+      padding: 5px;
+      transition: transform 0.3s;
+    }
+    figure:hover, figure:focus {
+      transform: scale(1.05);
+      border-color: #333;
+    }
+    img {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body onload="initializeGallery()">
+  <h1>Minha Galeria de Fotos</h1>
+  <div class="gallery" id="gallery">
+    <figure>
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Paisagem natural" />
+      <figcaption>Paisagem natural</figcaption>
+    </figure>
+    <figure>
+      <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=80" alt="Cidade à noite" />
+      <figcaption>Cidade à noite</figcaption>
+    </figure>
+    <figure>
+      <img src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=400&q=80" alt="Animal na natureza" />
+      <figcaption>Animal na natureza</figcaption>
+    </figure>
+    <figure>
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80" alt="Tecnologia moderna" />
+      <figcaption>Tecnologia moderna</figcaption>
+    </figure>
+    <figure>
+      <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=400&q=80" alt="Imagem do espaço" />
+      <figcaption>Imagem do espaço</figcaption>
+    </figure>
+    <figure>
+      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80" alt="Comida deliciosa" />
+      <figcaption>Comida deliciosa</figcaption>
+    </figure>
+  </div>
+
+  <script>
+    function initializeGallery() {
+      console.log("Página carregada - evento onload acionado");
+
+      const figures = document.querySelectorAll("figure");
+
+      for (let i = 0; i < figures.length; i++) {
+        const figure = figures[i];
+        figure.setAttribute("tabindex", "0"); // Torna acessível via teclado
+        console.log(`tabindex adicionado à imagem ${i + 1}`);
+
+        // Eventos de mouse
+        figure.addEventListener("mouseover", () => {
+          console.log(`Mouse entrou na imagem ${i + 1}`);
+        });
+        figure.addEventListener("mouseleave", () => {
+          console.log(`Mouse saiu da imagem ${i + 1}`);
+        });
+
+        // Eventos de teclado (foco)
+        figure.addEventListener("focus", () => {
+          console.log(`Imagem ${i + 1} focada via teclado`);
+        });
+        figure.addEventListener("blur", () => {
+          console.log(`Imagem ${i + 1} perdeu o foco`);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
