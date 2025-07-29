@@ -6,94 +6,86 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      text-align: center;
     }
     .gallery {
       display: flex;
       justify-content: center;
       margin-top: 20px;
+      gap: 15px;
+      flex-wrap: wrap;
     }
     .gallery img {
       height: 100px;
-      margin: 0 10px;
       cursor: pointer;
       border: 2px solid transparent;
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
     }
-    .gallery img:focus {
+    .gallery img:focus,
+    .gallery img:hover {
       outline: none;
-      border-color: blue;
+      border-color: #007bff;
     }
     .display {
       width: 400px;
       height: 300px;
       background-color: #eee;
       margin: 20px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-size: cover;
+      background-size: contain;
+      background-repeat: no-repeat;
       background-position: center;
-    }
-    .description {
-      text-align: center;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 10px;
       font-size: 1.2em;
-      margin-top: 10px;
+      font-weight: bold;
+      color: #333;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body onload="addTabIndex()">
 
-  <h1 style="text-align:center;">Galeria Interativa</h1>
-  <div class="display" id="display-area"></div>
-  <p class="description" id="image-description">Passe o mouse ou use Tab para ver a imagem ampliada.</p>
+  <h1>Galeria Interativa</h1>
+  <div class="display" id="display-area">Passe o mouse ou use Tab para ver a imagem ampliada.</div>
 
   <div class="gallery" id="image-gallery">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Soccer_ball.svg/512px-Soccer_ball.svg.png" alt="Bola de futebol" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Granite_%28Madagascar%29_1.jpg/640px-Granite_%28Madagascar%29_1.jpg" alt="Pedra de granito" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Drinking_fountain%2C_Chicago.jpg/640px-Drinking_fountain%2C_Chicago.jpg" alt="Água em fonte" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Leaf_icon_2.svg/640px-Leaf_icon_2.svg.png" alt="Folha verde" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Fire_icon.svg/640px-Fire_icon.svg.png" alt="Chama de fogo" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Light_bulb_icon.svg/640px-Light_bulb_icon.svg.png" alt="Lâmpada acesa" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Basketball.png/240px-Basketball.png" alt="Bola de basquete" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/GraniteSample.jpg/240px-GraniteSample.jpg" alt="Pedra de granito" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Water_drop_001.jpg/240px-Water_drop_001.jpg" alt="Gota de água" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Leaf_icon.svg/240px-Leaf_icon.svg.png" alt="Folha verde" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Fire_icon.svg/240px-Fire_icon.svg.png" alt="Chama de fogo" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Light_bulb_icon.svg/240px-Light_bulb_icon.svg.png" alt="Lâmpada acesa" />
   </div>
 
   <script>
     const images = document.querySelectorAll(".gallery img");
     const displayArea = document.getElementById("display-area");
-    const description = document.getElementById("image-description");
     const defaultText = "Passe o mouse ou use Tab para ver a imagem ampliada.";
 
     function updateDisplay(img) {
-      const src = img.getAttribute("src");
-      const alt = img.getAttribute("alt");
-      displayArea.style.backgroundImage = `url('${src}')`;
-      description.textContent = alt;
+      displayArea.style.backgroundImage = `url('${img.src}')`;
+      displayArea.textContent = img.alt;
     }
 
     function clearDisplay() {
       displayArea.style.backgroundImage = "none";
-      description.textContent = defaultText;
+      displayArea.textContent = defaultText;
     }
 
     function addTabIndex() {
       console.log("Função addTabIndex ativada");
-      for (let i = 0; i < images.length; i++) {
-        images[i].setAttribute("tabindex", "0");
+      images.forEach(img => {
+        img.setAttribute("tabindex", "0");
 
-        images[i].addEventListener("mouseover", function () {
-          updateDisplay(this);
-        });
-
-        images[i].addEventListener("mouseout", function () {
-          clearDisplay();
-        });
-
-        images[i].addEventListener("focus", function () {
-          updateDisplay(this);
-        });
-
-        images[i].addEventListener("blur", function () {
-          clearDisplay();
-        });
-      }
+        img.addEventListener("mouseover", () => updateDisplay(img));
+        img.addEventListener("mouseout", clearDisplay);
+        img.addEventListener("focus", () => updateDisplay(img));
+        img.addEventListener("blur", clearDisplay);
+      });
     }
   </script>
 
