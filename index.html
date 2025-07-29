@@ -2,45 +2,42 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Galeria Interativa de Fotos</title>
   <style>
     body {
       font-family: sans-serif;
       background-color: #f0f0f0;
       text-align: center;
+      margin: 20px;
     }
-
     h1 {
-      margin-top: 20px;
+      margin-bottom: 20px;
     }
-
     .gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 16px;
-      margin: 20px;
     }
-
     figure {
       margin: 0;
       border: 4px solid transparent;
       border-radius: 8px;
       overflow: hidden;
-    }
-
-    img {
       width: 300px;
       height: 200px;
+    }
+    img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       transition: transform 0.3s ease;
+      display: block;
     }
-
     img:hover {
       transform: scale(1.05);
     }
-
     figure:focus-within {
       border-color: #007BFF;
       outline: none;
@@ -51,19 +48,19 @@
   <h1>Galeria Interativa de Fotos</h1>
   <div class="gallery">
     <figure tabindex="0">
-      <img src="https://placekitten.com/300/200" alt="Gatinho fofo deitado na cama" />
+      <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=300&q=80" alt="Coruja empoleirada em galho" />
     </figure>
     <figure tabindex="0">
       <img src="https://placebear.com/300/200" alt="Urso em ambiente natural" />
     </figure>
     <figure tabindex="0">
-      <img src="https://placekitten.com/301/200" alt="Gato branco com olhos azuis" />
+      <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=300&q=80" alt="Coruja com olhos grandes" />
     </figure>
     <figure tabindex="0">
       <img src="https://placebear.com/301/200" alt="Urso andando na floresta" />
     </figure>
     <figure tabindex="0">
-      <img src="https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg" alt="Gatinho dormindo em uma almofada" />
+      <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=300&q=80" alt="Coruja voando ao pôr do sol" />
     </figure>
     <figure tabindex="0">
       <img src="https://placebear.com/302/200" alt="Urso observando ao longe" />
