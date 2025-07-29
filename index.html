@@ -1,98 +1,104 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Galeria Interativa de Fotos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galeria Interativa de Animais</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
+    }
+    .galeria {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 20px;
     }
-
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .thumb {
-      width: 150px;
-      height: 100px;
-      object-fit: cover;
-      cursor: pointer;
-      border: 2px solid #ccc;
-    }
-
-    #display {
-      margin-top: 20px;
-      width: 500px;
-      height: 300px;
-      border: 4px solid #333;
+    .imagem-grande {
+      width: 600px;
+      height: 400px;
+      background-color: #eee;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-size: cover;
-      background-position: center;
-      color: #000;
-      text-align: center;
+    }
+    .imagem-grande span {
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
       padding: 10px;
+    }
+    .miniaturas {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    figure {
+      margin: 0;
+      cursor: pointer;
+    }
+    figure img {
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
-  <h1>Galeria Interativa de Fotos</h1>
+  <main class="galeria">
+    <div class="imagem-grande" id="imagemGrande">
+      <span id="descricao">Passe o mouse sobre uma imagem ou use TAB para navegar.</span>
+    </div>
 
-  <div class="gallery">
-    <img src="https://images.unsplash.com/photo-1?w=300" alt="Coruja empoleirada em uma árvore" class="thumb" />
-    <img src="https://images.unsplash.com/photo-2?w=300" alt="Urso pescando em um rio" class="thumb" />
-    <img src="https://images.unsplash.com/photo-3?w=300" alt="Coruja com penas eriçadas" class="thumb" />
-    <img src="https://images.unsplash.com/photo-4?w=300" alt="Urso comendo frutas na floresta" class="thumb" />
-    <img src="https://images.unsplash.com/photo-5?w=300" alt="Coruja observando no escuro" class="thumb" />
-    <img src="https://images.unsplash.com/photo-6?w=300" alt="Urso caminhando na neve" class="thumb" />
-  </div>
-
-  <div id="display">Passe o mouse ou navegue com TAB sobre uma imagem.</div>
+    <div class="miniaturas" id="miniaturas">
+      <figure>
+        <img src="https://images.unsplash.com/photo-1618826411642-62f1c9ef353d" alt="Coruja empoleirada em um galho" />
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1560807707-8cc77767d783" alt="Urso pardo na floresta" />
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1571925435645-7f4b4c5ff62c" alt="Coruja branca com olhos arregalados" />
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1610878180933-63c76013f9a7" alt="Urso polar caminhando no gelo" />
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1583267745673-0d39d6f3c8c1" alt="Coruja-das-neves empoleirada" />
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1610876610932-4ed7d15abf0f" alt="Urso marrom sentado em um campo" />
+      </figure>
+    </div>
+  </main>
 
   <script>
-    window.onload = function () {
-      console.log("Página carregada");
+    const figuras = document.querySelectorAll("figure");
+    const imagemGrande = document.getElementById("imagemGrande");
+    const descricao = document.getElementById("descricao");
 
-      const thumbs = document.querySelectorAll('.thumb');
-      const display = document.getElementById('display');
+    figuras.forEach((figura) => {
+      const img = figura.querySelector("img");
 
-      // Adiciona tabindex automaticamente
-      for (let i = 0; i < thumbs.length; i++) {
-        thumbs[i].setAttribute('tabindex', '0');
+      img.setAttribute("tabindex", "0");
 
-        thumbs[i].addEventListener('mouseover', showImage);
-        thumbs[i].addEventListener('focus', showImage);
-
-        thumbs[i].addEventListener('mouseout', resetImage);
-        thumbs[i].addEventListener('blur', resetImage);
+      function atualizarImagem() {
+        imagemGrande.style.backgroundImage = `url('${img.src}')`;
+        descricao.textContent = img.alt;
       }
 
-      function showImage(event) {
-        const img = event.target;
-        const altText = img.alt;
-        const imgSrc = img.src;
-
-        display.style.backgroundImage = `url(${imgSrc})`;
-        display.textContent = altText;
-
-        console.log("Imagem exibida:", altText);
+      function limparImagem() {
+        imagemGrande.style.backgroundImage = "";
+        descricao.textContent = "Passe o mouse sobre uma imagem ou use TAB para navegar.";
       }
 
-      function resetImage() {
-        display.style.backgroundImage = '';
-        display.textContent = 'Passe o mouse ou navegue com TAB sobre uma imagem.';
-        console.log("Imagem resetada");
-      }
-    };
+      figura.addEventListener("mouseover", atualizarImagem);
+      figura.addEventListener("mouseout", limparImagem);
+      figura.addEventListener("focusin", atualizarImagem);
+      figura.addEventListener("focusout", limparImagem);
+    });
   </script>
 </body>
 </html>
